@@ -105,7 +105,6 @@ export const login = async (req, res) => {
 };
 
 /* Send OTP to User Email */
-
 export const sendOtp = async (req, res) => {
   try {
     const tarnsporter = nodemailer.createTransport({

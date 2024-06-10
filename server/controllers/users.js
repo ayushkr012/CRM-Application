@@ -1,16 +1,5 @@
 import User from "../models/User.js";
 
-/* Get User details  */
-
-export const getUser = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const user = await User.findById(id);
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
 
 /* Add Customers Details  */
 export const addCustomers = async (req, res) => {
@@ -59,6 +48,10 @@ export const addCustomers = async (req, res) => {
 };
 
 /* Get Customer details */
+
+// actual we don't need this function at the login time we save the user in the redux store
+// after when user perform the crud operation then we sent the updated details and saved the redux store
+// so because of this we don't need to call the seperate fucntion to get the customer details
 
 export const getCustomers = async (req, res) => {
   try {

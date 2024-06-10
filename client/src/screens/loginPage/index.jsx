@@ -9,7 +9,7 @@ import Form from "./Form";
 import FlexBetween from "../../components/FlexBetween";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -63,20 +63,18 @@ const LoginPage = () => {
       <Box
         width="100%"
         backgroundColor={theme.palette.background.alt}
-        p="1rem 6%"
+        p="1.3rem 6%"
         textAlign="center"
       >
-        <FlexBetween>
-          <Typography fontWeight="bold" fontSize="32px" color="primary">
-            Xeno Assignment
-          </Typography>
-        </FlexBetween>
+        <Typography fontWeight="bold" fontSize="32px" color="primary">
+          Xeno Assignment
+        </Typography>
       </Box>
 
       <Box
         width={isNonMobileScreens ? "50%" : "93%"}
-        p="2rem"
-        m="2rem auto"
+        p="1.9rem"
+        m="2.2rem auto"
         borderRadius="1.5rem"
         backgroundColor={theme.palette.background.alt}
       >
