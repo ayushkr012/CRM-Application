@@ -15,19 +15,36 @@ export const getUser = async (req, res) => {
 /* Add Customers Details  */
 export const addCustomers = async (req, res) => {
   try {
-    console.log("the data came from frontnd");
     const { userId, customers } = req.body;
 
     const user = await User.findById(userId);
-
 
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    user.customers.push(...customers);
-    await user.save();
+    customers.forEach((newCustomer) => {
+      const matchingCustomers = user.customers.filter(
+        (customer) => customer.email === newCustomer.email
+      );
 
+      // Increment visit count for all matching customers
+      matchingCustomers.forEach((customer) => {
+        customer.visitCount += 1;
+      });
+
+      // Determine visit count for the new customer
+      const newVisitCount = matchingCustomers.length + 1;
+
+      // Add new customer with calculated visit count and current date as last visit
+      user.customers.push({
+        ...newCustomer,
+        visitCount: newVisitCount,
+        lastVisit: new Date(),
+      });
+    });
+
+    await user.save();
     console.log(user);
 
     res.status(200).json({
@@ -45,8 +62,8 @@ export const addCustomers = async (req, res) => {
 
 export const getCustomers = async (req, res) => {
   try {
-    const { _id } = req.body;
-    const user = await User.findById(_id);
+    const { userId } = req.body;
+    const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
