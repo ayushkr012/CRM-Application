@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -11,16 +11,25 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Button,
+  IconButton,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Navbar from "../../screens/navbar";
 import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
+import FlexBetween from "../../components/FlexBetween";
 
 const CustomerHistory = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
   const user = useSelector((state) => state.user);
   const { palette } = useTheme();
+
+  // States to conditionally display data on the page
+  const [spendGt10000, setSpendGt10000] = useState(true);
+  const [spendGt10000AndVisitCountGte3, setSpendGt10000AndVisitCountGte3] =
+    useState(false);
+  const [lastVisited3MonthsAgo, setLastVisited3MonthsAgo] = useState(false);
 
   // Check if user and customers are defined
   if (!user || !user.customers) {
@@ -28,7 +37,7 @@ const CustomerHistory = () => {
       <Box>
         <Navbar />
         <Box width="100%" padding="2rem 6%">
-          <Typography variant="h6" color="error">
+          <Typography variant="h6" color="error" textAlign="center">
             No customer data available.
           </Typography>
         </Box>
@@ -54,22 +63,80 @@ const CustomerHistory = () => {
     (customer) => new Date(customer.lastVisit) < threeMonthsAgo
   );
 
+  const handleEditCustomer = (index) => {};
+  const handleDeleteCustomer = (index) => {};
+
   const renderCustomerTable = (customerList) => (
-    <TableContainer component={Paper} sx={{ marginTop: "1rem" }}>
+    <TableContainer
+      component={Paper}
+      sx={{
+        marginTop: "1rem",
+        borderRadius: "8px",
+        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+      }}
+    >
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Email</TableCell>
-            <TableCell>Spends</TableCell>
-            <TableCell>Last Visit</TableCell>
-            <TableCell>Visit Count</TableCell>
-            <TableCell>Action</TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Name
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Email
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Spends
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Last Visit
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Visit Count
+            </TableCell>
+            <TableCell
+              sx={{
+                backgroundColor: palette.background.default,
+                color: palette.text.primary,
+              }}
+            >
+              Action
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {customerList.map((customer, index) => (
-            <TableRow key={index}>
+            <TableRow
+              key={index}
+              sx={{
+                "&:hover": { backgroundColor: palette.action.hover },
+                transition: "background-color 0.3s",
+              }}
+            >
               <TableCell>{customer.name}</TableCell>
               <TableCell>{customer.email}</TableCell>
               <TableCell>{customer.spends}</TableCell>
@@ -78,12 +145,15 @@ const CustomerHistory = () => {
               </TableCell>
               <TableCell>{customer.visitCount}</TableCell>
               <TableCell>
-                <Button variant="contained" sx={{ marginRight: "0.5rem" }}>
-                  Edit
-                </Button>
-                <Button variant="contained" color="error">
-                  Delete
-                </Button>
+                <IconButton onClick={() => handleEditCustomer(index)}>
+                  <EditIcon />
+                </IconButton>
+                <IconButton
+                  onClick={() => handleDeleteCustomer(index)}
+                  color="error"
+                >
+                  <DeleteIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}
@@ -95,6 +165,56 @@ const CustomerHistory = () => {
   return (
     <Box>
       <Navbar />
+      <FlexBetween sx={{ padding: "1rem 6%" }}>
+        <Typography
+          variant="h6"
+          color="primary"
+          textAlign="center"
+          onClick={() => {
+            setSpendGt10000(true);
+            setSpendGt10000AndVisitCountGte3(false);
+            setLastVisited3MonthsAgo(false);
+          }}
+          sx={{
+            cursor: "pointer",
+            "&:hover": { color: palette.secondary.main },
+          }}
+        >
+          Customers with spends &gt; 10000
+        </Typography>
+        <Typography
+          variant="h6"
+          color="primary"
+          textAlign="center"
+          onClick={() => {
+            setSpendGt10000(false);
+            setSpendGt10000AndVisitCountGte3(true);
+            setLastVisited3MonthsAgo(false);
+          }}
+          sx={{
+            cursor: "pointer",
+            "&:hover": { color: palette.secondary.main },
+          }}
+        >
+          Customers with spends &gt; 10000 and visit count ≥ 3
+        </Typography>
+        <Typography
+          variant="h6"
+          color="primary"
+          textAlign="center"
+          onClick={() => {
+            setSpendGt10000(false);
+            setSpendGt10000AndVisitCountGte3(false);
+            setLastVisited3MonthsAgo(true);
+          }}
+          sx={{
+            cursor: "pointer",
+            "&:hover": { color: palette.secondary.main },
+          }}
+        >
+          Customers who last visited 3 months ago
+        </Typography>
+      </FlexBetween>
       <Box
         width="100%"
         padding="2rem 6%"
@@ -102,78 +222,83 @@ const CustomerHistory = () => {
         flexDirection={isNonMobileScreens ? "row" : "column"}
         justifyContent="space-between"
         gap="2rem"
-        sx={{
-          maxHeight: "100vh",
-          overflowY: "auto",
-          scrollbarWidth: "0px",
-          scrollbarColor: `${palette.primary.main} ${palette.background.default}`,
-        }}
       >
-        {/* Left part of the home screen */}
+        {/*left part of the screen */}
         <Box
-          flexBasis={isNonMobileScreens ? "30%" : "100%"}
+          flexBasis={isNonMobileScreens ? "20%" : "100%"}
+          sx={{
+            padding: "1rem",
+            borderRadius: "8px",
+            // boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
+          }}
+        ></Box>
+
+        {/* Middle part of the screen */}
+        <Box
+          flexBasis={isNonMobileScreens ? "50%" : "100%"}
           sx={{
             backgroundColor: palette.background.paper,
             padding: "1rem",
             borderRadius: "8px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
-          <Typography variant="h6" color="primary" textAlign="center">
-            Customers with spends &gt; 10000
-          </Typography>
-          {customersWithSpendsAbove10000.length > 0 ? (
-            renderCustomerTable(customersWithSpendsAbove10000)
-          ) : (
-            <Typography textAlign="center" mt={2}>
-              No customers found.
-            </Typography>
+          {spendGt10000 && (
+            <>
+              <Typography variant="h6" color="primary" textAlign="center">
+                Customers with spends &gt; 10000
+              </Typography>
+              {customersWithSpendsAbove10000.length > 0 ? (
+                renderCustomerTable(customersWithSpendsAbove10000)
+              ) : (
+                <Typography textAlign="center" mt={2}>
+                  No customers found.
+                </Typography>
+              )}
+            </>
+          )}
+
+          {spendGt10000AndVisitCountGte3 && (
+            <>
+              <Typography variant="h6" color="primary" textAlign="center">
+                Customers with spends &gt; 10000 and visit count ≥ 3
+              </Typography>
+              {customersWithSpendsAndVisitCount.length > 0 ? (
+                renderCustomerTable(customersWithSpendsAndVisitCount)
+              ) : (
+                <Typography textAlign="center" mt={2}>
+                  No customers found.
+                </Typography>
+              )}
+            </>
+          )}
+
+          {lastVisited3MonthsAgo && (
+            <>
+              <Typography variant="h6" color="primary" textAlign="center">
+                Customers who last visited 3 months ago
+              </Typography>
+              {customersWithNoRecentVisit.length > 0 ? (
+                renderCustomerTable(customersWithNoRecentVisit)
+              ) : (
+                <Typography textAlign="center" mt={2}>
+                  No customers who haven't visited in the last 3 months.
+                </Typography>
+              )}
+            </>
           )}
         </Box>
 
-        {/* Middle part of the home screen */}
-        <Box
-          flexBasis={isNonMobileScreens ? "30%" : "100%"}
-          sx={{
-            backgroundColor: palette.background.paper,
-            padding: "1rem",
-            borderRadius: "8px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-          }}
-        >
-          <Typography variant="h6" color="primary" textAlign="center">
-            Customers with spends &gt; 10000 and visit count ≥ 3
-          </Typography>
-          {customersWithSpendsAndVisitCount.length > 0 ? (
-            renderCustomerTable(customersWithSpendsAndVisitCount)
-          ) : (
-            <Typography textAlign="center" mt={2}>
-              No customers found.
-            </Typography>
-          )}
-        </Box>
+        {/* Right part of the screen */}
 
-        {/* Right part of the home screen */}
         <Box
-          flexBasis={isNonMobileScreens ? "30%" : "100%"}
+          flexBasis={isNonMobileScreens ? "20%" : "100%"}
           sx={{
-            backgroundColor: palette.background.paper,
             padding: "1rem",
             borderRadius: "8px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
+            // boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           }}
-        >
-          <Typography variant="h6" color="primary" textAlign="center">
-            Customers who last visited 3 months ago
-          </Typography>
-          {customersWithNoRecentVisit.length > 0 ? (
-            renderCustomerTable(customersWithNoRecentVisit)
-          ) : (
-            <Typography textAlign="center" mt={2}>
-              No customers who haven't visited in the last 3 months.
-            </Typography>
-          )}
-        </Box>
+        ></Box>
       </Box>
       <ToastContainer />
     </Box>
