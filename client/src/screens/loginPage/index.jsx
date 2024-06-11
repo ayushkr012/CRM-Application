@@ -96,7 +96,7 @@ const LoginPage = () => {
           }}
         />
 
-        {/* <Box
+        <Box
           display="flex"
           flexDirection="column"
           justifyContent="center"
@@ -113,7 +113,7 @@ const LoginPage = () => {
               onError={responseErrorGoogle}
             />
           </GoogleOAuthProvider>
-        </Box> */}
+        </Box>
 
 
       </Box>

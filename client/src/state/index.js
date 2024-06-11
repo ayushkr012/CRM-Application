@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
-  mode: "white",
+  mode: "dark",
   user: null,
   token: null,
 };

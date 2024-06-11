@@ -42,7 +42,7 @@ export const colorTokens = {
 };
 
 // material ui theme settings
-export const themeSettings = (mode = "light") => {
+export const themeSettings = (mode) => {
   return {
     palette: {
       mode: mode,
