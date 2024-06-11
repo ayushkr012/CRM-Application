@@ -81,6 +81,13 @@ export const login = async (req, res) => {
         message: "User Not Found! Please Continue to Register",
       });
     }
+
+    if (!user.password) {
+      return res.status(400).json({
+        success: false,
+        message: "User Register with Google! Please Continue to Google Login",
+      });
+    }
     // Check if password is correct
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) {

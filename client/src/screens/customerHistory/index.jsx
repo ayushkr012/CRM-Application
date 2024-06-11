@@ -181,7 +181,7 @@ const CustomerHistory = () => {
           sx={{
             margin: "0 0.5rem",
             "&:hover": {
-              backgroundColor: palette.secondary.main,
+              backgroundColor: "#FF8000",
               color: "#000000",
             },
           }}
@@ -199,7 +199,7 @@ const CustomerHistory = () => {
           sx={{
             margin: "0 0.5rem",
             "&:hover": {
-              backgroundColor: palette.secondary.main,
+              backgroundColor: "#FF8000",
               color: "#000000",
             },
           }}
@@ -217,7 +217,7 @@ const CustomerHistory = () => {
           sx={{
             margin: "0 0.5rem",
             "&:hover": {
-              backgroundColor: palette.secondary.main,
+              backgroundColor: "#FF8000",
               color: "#000000",
             },
           }}

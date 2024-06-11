@@ -8,6 +8,6 @@ const userRoutes = express.Router();
 userRoutes.post("/addcustomer", verifyToken, addCustomers);
 
 /* get all customers */
-userRoutes.get("/getcustomers", verifyToken, getCustomers);
+userRoutes.get("/getcustomers", getCustomers);
 
 export default userRoutes;

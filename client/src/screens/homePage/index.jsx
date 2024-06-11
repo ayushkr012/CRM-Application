@@ -26,8 +26,9 @@ const HomePage = () => {
   // const { picturePath, name, email } = useSelector((state) => state.user || {});
   const userId = useSelector((state) => state.user?._id);
   const navigate = useNavigate();
-  // console.log(userId);
+  // console.log("UserId   " + userId );
   const token = useSelector((state) => state.token);
+  // console.log("token   " + token);
   const dispatch = useDispatch();
 
   const [customers, setCustomers] = useState([]);
