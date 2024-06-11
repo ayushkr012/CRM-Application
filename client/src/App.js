@@ -11,7 +11,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 // createTheme is used to create a theme object that can be used to customize the styling of components within a Material-UI application.
 import { createTheme } from "@mui/material/styles";
 
-import { themeSettings } from "./theme.js";
+import { themeSettings } from "./theme";
 function App() {
   const mode = useSelector((state) => state.mode); // initial it set to the light mode
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

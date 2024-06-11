@@ -27,22 +27,22 @@ export const colorTokens = {
     800: "#00353F",
     900: "#001519",
   },
-  // secondary: {
-  //   50: "#FFF4E6",
-  //   100: "#FFE5CC",
-  //   200: "#FFCC99",
-  //   300: "#FFB366",
-  //   400: "#FF9933",
-  //   500: "#FF8000",
-  //   600: "#CC6600",
-  //   700: "#994D00",
-  //   800: "#663300",
-  //   900: "#331900",
-  // },
+  secondary: {
+    50: "#FFF4E6",
+    100: "#FFE5CC",
+    200: "#FFCC99",
+    300: "#FFB366",
+    400: "#FF9933",
+    500: "#FF8000",
+    600: "#CC6600",
+    700: "#994D00",
+    800: "#663300",
+    900: "#331900",
+  },
 };
 
 // material ui theme settings
- export const themeSettings = (mode = "light") => {
+export const themeSettings = (mode = "light") => {
   return {
     palette: {
       mode: mode,
@@ -54,11 +54,11 @@ export const colorTokens = {
               main: colorTokens.primary[500],
               light: colorTokens.primary[800],
             },
-            // secondary: {
-            //   dark: colorTokens.secondary[200],
-            //   main: colorTokens.secondary[500],
-            //   light: colorTokens.secondary[800],
-            // },
+            secondary: {
+              dark: colorTokens.secondary[200],
+              main: colorTokens.secondary[500],
+              light: colorTokens.secondary[800],
+            },
             neutral: {
               dark: colorTokens.grey[100],
               main: colorTokens.grey[200],
@@ -79,11 +79,11 @@ export const colorTokens = {
               main: colorTokens.primary[500],
               light: colorTokens.primary[50],
             },
-            // secondary: {
-            //   dark: colorTokens.secondary[700],
-            //   main: colorTokens.secondary[500],
-            //   light: colorTokens.secondary[50],
-            // },
+            secondary: {
+              dark: colorTokens.secondary[700],
+              main: colorTokens.secondary[500],
+              light: colorTokens.secondary[50],
+            },
             neutral: {
               dark: colorTokens.grey[700],
               main: colorTokens.grey[500],
@@ -128,6 +128,5 @@ export const colorTokens = {
     },
   };
 };
-
 
 // export default themeSettings;
