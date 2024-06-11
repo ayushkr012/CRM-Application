@@ -23,8 +23,8 @@ import FlexBetween from "../../components/FlexBetween";
 
 const CustomerHistory = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const user = useSelector((state) => state.user);
-  const { palette } = useTheme();
+  const user = useSelector((state) => state.user) || {}; // Default to an empty object if 'user' is undefined
+  const { palette } = useTheme() || {}; // Default to an empty object if 'useTheme()' is undefined
 
   // States to conditionally display data on the page
   const [spendGt10000, setSpendGt10000] = useState(true);
@@ -32,22 +32,7 @@ const CustomerHistory = () => {
     useState(false);
   const [lastVisited3MonthsAgo, setLastVisited3MonthsAgo] = useState(false);
 
-  // Check if user and customers are defined
-  if (!user || !user.customers) {
-    return (
-      <Box>
-        <Navbar />
-        <Box width="100%" padding="2rem 6%">
-          <Typography variant="h6" color="error" textAlign="center">
-            No customer data available.
-          </Typography>
-        </Box>
-        <ToastContainer />
-      </Box>
-    );
-  }
-
-  const { customers } = user;
+  const { customers = [] } = user; // Default to an empty array if 'customers' is undefined
 
   // Reverse the order of the customers array so the most recent customer is displayed first
   const reversedCustomers = customers.slice().reverse();
@@ -84,48 +69,48 @@ const CustomerHistory = () => {
           <TableRow>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text ? palette.text.primary || "" : "",
               }}
             >
               Name
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text.primary || "",
               }}
             >
               Email
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text.primary || "",
               }}
             >
               Spends
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text.primary || "",
               }}
             >
               Last Visit
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text.primary || "",
               }}
             >
               Visit Count
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default,
-                color: palette.text.primary,
+                backgroundColor: palette.background.default || "",
+                color: palette.text.primary || "",
               }}
             >
               Action
@@ -246,7 +231,7 @@ const CustomerHistory = () => {
         <Box
           flexBasis={isNonMobileScreens ? "50%" : "100%"}
           sx={{
-            backgroundColor: palette.background.paper,
+            backgroundColor: palette.background.paper || "",
             padding: "1rem",
             borderRadius: "8px",
             boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
