@@ -56,6 +56,23 @@ export default function Navbar() {
         >
           CRM Application
         </Typography>
+        <Typography
+          // fontWeight="bold"
+          // fontSize="clamp(1rem, 2rem, 2.25rem)"
+          color="primary"
+          onClick={() => navigate("/customerhistory")}
+          sx={{
+            "&:hover": {
+              color:
+                mode == "dark"
+                  ? theme.palette.primary.dark
+                  : theme.palette.primary.dark,
+              cursor: "pointer",
+            },
+          }}
+        >
+          CustomerHistory
+        </Typography>
       </FlexBetween>
 
       {/* DESKTOP NAV */}
@@ -148,6 +165,8 @@ export default function Navbar() {
                 <LightMode sx={{ color: dark, fontSize: "25px" }} />
               )}
             </IconButton>
+
+            
 
             <FormControl variant="standard" value={fullName}>
               <Select

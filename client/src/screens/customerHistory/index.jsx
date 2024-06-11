@@ -12,6 +12,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  Button,
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -48,18 +49,21 @@ const CustomerHistory = () => {
 
   const { customers, name } = user;
 
-  const customersWithSpendsAbove10000 = customers.filter(
+  // Reverse the order of the customers array so the most recent customer is displayed first
+  const reversedCustomers = customers.slice().reverse();
+
+  const customersWithSpendsAbove10000 = reversedCustomers.filter(
     (customer) => customer.spends > 10000
   );
 
-  const customersWithSpendsAndVisitCount = customers.filter(
+  const customersWithSpendsAndVisitCount = reversedCustomers.filter(
     (customer) => customer.spends > 10000 && customer.visitCount >= 3
   );
 
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(threeMonthsAgo.getMonth() - 3);
 
-  const customersWithNoRecentVisit = customers.filter(
+  const customersWithNoRecentVisit = reversedCustomers.filter(
     (customer) => new Date(customer.lastVisit) < threeMonthsAgo
   );
 
@@ -166,54 +170,60 @@ const CustomerHistory = () => {
     <Box>
       <Navbar />
       <FlexBetween sx={{ padding: "1rem 6%" }}>
-        <Typography
-          variant="h6"
+        <Button
+          variant={spendGt10000 ? "contained" : "outlined"}
           color="primary"
-          textAlign="center"
           onClick={() => {
             setSpendGt10000(true);
             setSpendGt10000AndVisitCountGte3(false);
             setLastVisited3MonthsAgo(false);
           }}
           sx={{
-            cursor: "pointer",
-            "&:hover": { color: palette.secondary.main },
+            margin: "0 0.5rem",
+            "&:hover": {
+              backgroundColor: palette.secondary.main,
+              color: palette.secondary.contrastText,
+            },
           }}
         >
           Customers with spends &gt; 10000
-        </Typography>
-        <Typography
-          variant="h6"
+        </Button>
+        <Button
+          variant={spendGt10000AndVisitCountGte3 ? "contained" : "outlined"}
           color="primary"
-          textAlign="center"
           onClick={() => {
             setSpendGt10000(false);
             setSpendGt10000AndVisitCountGte3(true);
             setLastVisited3MonthsAgo(false);
           }}
           sx={{
-            cursor: "pointer",
-            "&:hover": { color: palette.secondary.main },
+            margin: "0 0.5rem",
+            "&:hover": {
+              backgroundColor: palette.secondary.main,
+              color: palette.secondary.contrastText,
+            },
           }}
         >
           Customers with spends &gt; 10000 and visit count ≥ 3
-        </Typography>
-        <Typography
-          variant="h6"
+        </Button>
+        <Button
+          variant={lastVisited3MonthsAgo ? "contained" : "outlined"}
           color="primary"
-          textAlign="center"
           onClick={() => {
             setSpendGt10000(false);
             setSpendGt10000AndVisitCountGte3(false);
             setLastVisited3MonthsAgo(true);
           }}
           sx={{
-            cursor: "pointer",
-            "&:hover": { color: palette.secondary.main },
+            margin: "0 0.5rem",
+            "&:hover": {
+              backgroundColor: palette.secondary.main,
+              color: palette.secondary.contrastText,
+            },
           }}
         >
           Customers who last visited 3 months ago
-        </Typography>
+        </Button>
       </FlexBetween>
       <Box
         width="100%"
@@ -223,13 +233,12 @@ const CustomerHistory = () => {
         justifyContent="space-between"
         gap="2rem"
       >
-        {/*left part of the screen */}
+        {/* Left part of the screen */}
         <Box
           flexBasis={isNonMobileScreens ? "20%" : "100%"}
           sx={{
             padding: "1rem",
             borderRadius: "8px",
-            // boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           }}
         ></Box>
 
@@ -290,13 +299,11 @@ const CustomerHistory = () => {
         </Box>
 
         {/* Right part of the screen */}
-
         <Box
           flexBasis={isNonMobileScreens ? "20%" : "100%"}
           sx={{
             padding: "1rem",
             borderRadius: "8px",
-            // boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
           }}
         ></Box>
       </Box>
