@@ -27,13 +27,24 @@ export const colorTokens = {
     800: "#00353F",
     900: "#001519",
   },
+  secondary: {
+    50: "#FFF4E6",
+    100: "#FFE5CC",
+    200: "#FFCC99",
+    300: "#FFB366",
+    400: "#FF9933",
+    500: "#FF8000",
+    600: "#CC6600",
+    700: "#994D00",
+    800: "#663300",
+    900: "#331900",
+  },
 };
 
 // material ui theme settings
 export const themeSettings = (mode) => {
   return {
     palette: {
-      // the term "palette" refers to a collection of colors that are used to define the overall look and feel of a user interface or a design system.
       mode: mode,
       ...(mode === "dark"
         ? {
@@ -42,6 +53,11 @@ export const themeSettings = (mode) => {
               dark: colorTokens.primary[200],
               main: colorTokens.primary[500],
               light: colorTokens.primary[800],
+            },
+            secondary: {
+              dark: colorTokens.secondary[200],
+              main: colorTokens.secondary[500],
+              light: colorTokens.secondary[800],
             },
             neutral: {
               dark: colorTokens.grey[100],
@@ -53,6 +69,7 @@ export const themeSettings = (mode) => {
             background: {
               default: colorTokens.grey[900],
               alt: colorTokens.grey[800],
+              paper: colorTokens.grey[800], 
             },
           }
         : {
@@ -61,6 +78,11 @@ export const themeSettings = (mode) => {
               dark: colorTokens.primary[700],
               main: colorTokens.primary[500],
               light: colorTokens.primary[50],
+            },
+            secondary: {
+              dark: colorTokens.secondary[700],
+              main: colorTokens.secondary[500],
+              light: colorTokens.secondary[50],
             },
             neutral: {
               dark: colorTokens.grey[700],
@@ -72,11 +94,11 @@ export const themeSettings = (mode) => {
             background: {
               default: colorTokens.grey[10],
               alt: colorTokens.grey[0],
+              paper: colorTokens.grey[0], 
             },
           }),
     },
     typography: {
-      //  typography involves the selection of fonts, font sizes, line spacing, letter spacing, and other text-related attributes to create a harmonious and readable text presentation.
       fontFamily: ["Rubik", "sans-serif"].join(","),
       fontSize: 12,
       h1: {

@@ -23,7 +23,7 @@ import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const isDesktop = useMediaQuery("(min-width:1000px)");
-  const { picturePath, name, email } = useSelector((state) => state.user || {});
+  // const { picturePath, name, email } = useSelector((state) => state.user || {});
   const userId = useSelector((state) => state.user?._id);
   const navigate = useNavigate();
   // console.log(userId);

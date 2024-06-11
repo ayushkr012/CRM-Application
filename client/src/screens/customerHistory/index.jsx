@@ -47,7 +47,7 @@ const CustomerHistory = () => {
     );
   }
 
-  const { customers, name } = user;
+  const { customers } = user;
 
   // Reverse the order of the customers array so the most recent customer is displayed first
   const reversedCustomers = customers.slice().reverse();
