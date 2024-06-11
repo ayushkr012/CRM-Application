@@ -23,8 +23,8 @@ import FlexBetween from "../../components/FlexBetween";
 
 const CustomerHistory = () => {
   const isNonMobileScreens = useMediaQuery("(min-width:1000px)");
-  const user = useSelector((state) => state.user) || {}; // Default to an empty object if 'user' is undefined
-  const { palette } = useTheme() || {}; // Default to an empty object if 'useTheme()' is undefined
+  const user = useSelector((state) => state.user);
+  const { palette } = useTheme();
 
   // States to conditionally display data on the page
   const [spendGt10000, setSpendGt10000] = useState(true);
@@ -32,7 +32,22 @@ const CustomerHistory = () => {
     useState(false);
   const [lastVisited3MonthsAgo, setLastVisited3MonthsAgo] = useState(false);
 
-  const { customers = [] } = user; // Default to an empty array if 'customers' is undefined
+  // Check if user and customers are defined
+  if (!user || !user.customers) {
+    return (
+      <Box>
+        <Navbar />
+        <Box width="100%" padding="2rem 6%">
+          <Typography variant="h6" color="error" textAlign="center">
+            No customer data available.
+          </Typography>
+        </Box>
+        <ToastContainer />
+      </Box>
+    );
+  }
+
+  const { customers } = user;
 
   // Reverse the order of the customers array so the most recent customer is displayed first
   const reversedCustomers = customers.slice().reverse();
@@ -69,48 +84,48 @@ const CustomerHistory = () => {
           <TableRow>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text ? palette.text.primary || "" : "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Name
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text.primary || "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Email
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text.primary || "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Spends
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text.primary || "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Last Visit
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text.primary || "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Visit Count
             </TableCell>
             <TableCell
               sx={{
-                backgroundColor: palette.background.default || "",
-                color: palette.text.primary || "",
+                backgroundColor: palette.background.default,
+                color: palette.primary.dark,
               }}
             >
               Action
@@ -122,7 +137,7 @@ const CustomerHistory = () => {
             <TableRow
               key={index}
               sx={{
-                "&:hover": { backgroundColor: palette.action.hover },
+                "&:hover": { backgroundColor: palette.primary.light },
                 transition: "background-color 0.3s",
               }}
             >
@@ -167,7 +182,7 @@ const CustomerHistory = () => {
             margin: "0 0.5rem",
             "&:hover": {
               backgroundColor: palette.secondary.main,
-              color: palette.secondary.contrastText,
+              color: "#000000",
             },
           }}
         >
@@ -185,7 +200,7 @@ const CustomerHistory = () => {
             margin: "0 0.5rem",
             "&:hover": {
               backgroundColor: palette.secondary.main,
-              color: palette.secondary.contrastText,
+              color: "#000000",
             },
           }}
         >
@@ -203,7 +218,7 @@ const CustomerHistory = () => {
             margin: "0 0.5rem",
             "&:hover": {
               backgroundColor: palette.secondary.main,
-              color: palette.secondary.contrastText,
+              color: "#000000",
             },
           }}
         >
@@ -231,7 +246,7 @@ const CustomerHistory = () => {
         <Box
           flexBasis={isNonMobileScreens ? "50%" : "100%"}
           sx={{
-            backgroundColor: palette.background.paper || "",
+            backgroundColor: palette.background.alt,
             padding: "1rem",
             borderRadius: "8px",
             boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)",
