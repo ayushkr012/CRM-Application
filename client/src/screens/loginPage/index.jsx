@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   Box,
   Typography,
@@ -5,11 +6,10 @@ import {
   useMediaQuery,
   Divider,
 } from "@mui/material";
+import { RotatingLines } from "react-loader-spinner";
 import Form from "./Form";
-import FlexBetween from "../../components/FlexBetween";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { GoogleLogin } from "@react-oauth/google";
-import { jwtDecode } from "jwt-decode";
+import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
+import {jwtDecode} from "jwt-decode";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,11 +21,11 @@ const LoginPage = () => {
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const responseSuccessGoogle = (response) => {
+    setLoading(true);
     const details = jwtDecode(response.credential);
-    console.log("Google Login Success");
-    console.log(details);
     axios(`${process.env.REACT_APP_Backend_URL}/auth/googlelogin`, {
       method: "POST",
       headers: {
@@ -39,23 +39,25 @@ const LoginPage = () => {
         const { user, token, message } = res.data;
         dispatch(
           setLogin({
-            // Pass the user and token as a payload in an object
             user: user,
             token: token,
           })
         );
         toast.success(message);
         navigate("/home");
-        console.log(res.data);
       })
       .catch((err) => {
+        toast.error("Error logging in");
         console.log(err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   };
 
   const responseErrorGoogle = (response) => {
     console.log(response);
-    console.log("Error in Google Login");
+    toast.error("Error in Google Login");
   };
 
   return (
@@ -108,14 +110,35 @@ const LoginPage = () => {
           backgroundColor={theme.palette.background.alt}
         >
           <GoogleOAuthProvider clientId="60100461685-hl1cu1f2bfq1i146tqgf8knn8g8o81sa.apps.googleusercontent.com">
-            <GoogleLogin
-              onSuccess={responseSuccessGoogle}
-              onError={responseErrorGoogle}
-            />
+            {loading ? (
+              <Box
+                position="fixed"
+                top="50%"
+                left="50%"
+                sx={{
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                <RotatingLines
+                  visible={true}
+                  height="96"
+                  width="96"
+                  color="grey"
+                  strokeWidth="5"
+                  animationDuration="0.75"
+                  ariaLabel="rotating-lines-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                />
+              </Box>
+            ) : (
+              <GoogleLogin
+                onSuccess={responseSuccessGoogle}
+                onError={responseErrorGoogle}
+              />
+            )}
           </GoogleOAuthProvider>
         </Box>
-
-
       </Box>
     </Box>
   );
