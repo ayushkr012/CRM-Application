@@ -9,7 +9,7 @@ import {
 import { RotatingLines } from "react-loader-spinner";
 import Form from "./Form";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -69,7 +69,7 @@ const LoginPage = () => {
         textAlign="center"
       >
         <Typography fontWeight="bold" fontSize="32px" color="primary">
-          Xeno Assignment
+          CRM Application
         </Typography>
       </Box>
 
@@ -85,7 +85,7 @@ const LoginPage = () => {
           variant="h5"
           sx={{ mb: "1.5rem", textAlign: "center" }}
         >
-          Welcome to Xeno Community!
+          Welcome to Community!
         </Typography>
 
         <Form />

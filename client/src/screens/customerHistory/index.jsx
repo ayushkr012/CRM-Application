@@ -147,6 +147,9 @@ const CustomerHistory = () => {
               <TableCell>
                 {new Date(customer.lastVisit).toLocaleDateString()}
               </TableCell>
+              {/* <TableCell>
+                {new Date(customer.lastVisit).toLocaleString()}
+              </TableCell> */}
               <TableCell>{customer.visitCount}</TableCell>
               <TableCell>
                 <IconButton onClick={() => handleEditCustomer(index)}>

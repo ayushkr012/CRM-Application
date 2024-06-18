@@ -150,7 +150,7 @@ export const sendOtp = async (req, res) => {
       const mailOptions = {
         from: process.env.EMAIL,
         to: email,
-        subject: "Xeno User Verification",
+        subject: "CRM App User Verification",
         html: `
     <html>
       <head>
@@ -182,7 +182,7 @@ export const sendOtp = async (req, res) => {
       </head>
       <body>
         <div class="container">
-          <h2 style="color: #004aad;">Xeno User Verification</h2>
+          <h2 style="color: #004aad;">CRM App User Verification</h2>
           <p>Hello ${user.name},</p>
           <p>Your OTP for Account Verification is:</p>
           <div style="background-color: #f4f4f4; border-radius: 5px; padding: 10px; margin-bottom: 20px;">
@@ -203,9 +203,9 @@ export const sendOtp = async (req, res) => {
           </p>
           <p>
             <a href="#">Business Services</a> | 
-            <a href="#">Get the Xeno app</a>
+            <a href="#">Get the CRM  app</a>
           </p>
-          <p>Xeno Corporation © 2024</p>
+          <p>CRM App Corporation © 2024</p>
         </div>
       </body>
     </html>
@@ -238,7 +238,7 @@ export const sendOtp = async (req, res) => {
       const mailOptions = {
         from: process.env.EMAIL,
         to: email,
-        subject: "Xeno User Verification",
+        subject: "CRM App User Verification",
         html: `
     <html>
       <head>
@@ -270,7 +270,7 @@ export const sendOtp = async (req, res) => {
       </head>
       <body>
         <div class="container">
-          <h2 style="color: #004aad;">Xeno User Verification</h2>
+          <h2 style="color: #004aad;">CRM App User Verification</h2>
           <p>Hello ${user.name},</p>
           <p>Your OTP for Account Verification is:</p>
           <div style="background-color: #f4f4f4; border-radius: 5px; padding: 10px; margin-bottom: 20px;">
@@ -291,9 +291,9 @@ export const sendOtp = async (req, res) => {
           </p>
           <p>
             <a href="#">Business Services</a> | 
-            <a href="#">Get the Xeno app</a>
+            <a href="#">Get the CRM app</a>
           </p>
-          <p>Xeno Corporation © 2024</p>
+          <p>CRM App Corporation © 2024</p>
         </div>
       </body>
     </html>
